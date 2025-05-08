@@ -6,24 +6,33 @@ const changeRoles = async () => {
     await db.sequelize.authenticate();
     console.log("✅ Conectado a la base de datos");
 
-    // Obtener el rol "admin"
+    // Obtener los roles "user", "admin" y "moderator"
+    const userRole = await db.role.findOne({ where: { name: "user" } });
     const adminRole = await db.role.findOne({ where: { name: "admin" } });
-    if (!adminRole) {
-      console.error("❌ No se encontró el rol 'admin'. Asegúrate de que exista.");
+    const moderatorRole = await db.role.findOne({ where: { name: "moderator" } });
+
+    if (!userRole || !adminRole || !moderatorRole) {
+      console.error("❌ No se encontraron todos los roles ('user', 'admin', 'moderator'). Asegúrate de que existan.");
       return;
     }
+
+    const roles = [userRole, adminRole, moderatorRole]; // Lista de roles disponibles
 
     // Cambiar el rol de todos los usuarios existentes
     const users = await db.user.findAll();
     for (const user of users) {
-      const hasAdminRole = await user.hasRole(adminRole);
-      if (!hasAdminRole) {
-        await user.addRole(adminRole);
-        console.log(`✅ Rol 'admin' asignado al usuario: ${user.username}`);
+      // Seleccionar un rol aleatorio
+      const randomRole = roles[Math.floor(Math.random() * roles.length)];
+
+      // Verificar si el usuario ya tiene el rol asignado
+      const hasRole = await user.hasRole(randomRole);
+      if (!hasRole) {
+        await user.addRole(randomRole);
+        console.log(`✅ Rol '${randomRole.name}' asignado al usuario: ${user.username}`);
       }
     }
 
-    console.log("🎉 Todos los usuarios ahora tienen el rol 'admin'.");
+    console.log("🎉 Roles asignados aleatoriamente a todos los usuarios.");
   } catch (error) {
     console.error("❌ Error al cambiar roles:", error);
   } finally {
