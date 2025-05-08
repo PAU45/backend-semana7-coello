@@ -1,5 +1,12 @@
-const fs = require('fs');
-const db = require('./config/db.config'); // Asegúrate de que este archivo esté configurado para tu conexión a la base de datos
+import fs from 'fs';
+import { createConnection } from 'mysql2/promise'; // Asegúrate de tener mysql2 instalado
+
+const db = await createConnection({
+    host: 'tu_host',
+    user: 'tu_usuario',
+    database: 'tu_base_de_datos',
+    password: 'tu_contraseña'
+});
 
 const insertData = async () => {
     try {
@@ -22,6 +29,8 @@ const insertData = async () => {
         }
     } catch (error) {
         console.error('Error inserting data:', error);
+    } finally {
+        await db.end(); // Cerrar la conexión
     }
 };
 
