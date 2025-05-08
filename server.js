@@ -21,7 +21,13 @@ const app = express();
 
 // Configura las opciones de CORS para permitir acceso desde múltiples orígenes
 const corsOptions = {
-  origin: ["http://localhost:8080", "http://localhost:3001"]
+  origin: [
+    "http://localhost:8080", // Para pruebas locales
+    "http://localhost:3001", // Para pruebas locales
+    "https://frontend-semana7-coello.vercel.app" // Dominio del frontend desplegado
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE"], // Métodos HTTP permitidos
+  credentials: true, // Permitir envío de cookies o encabezados de autenticación
 };
 
 // Aplica el middleware de CORS a la aplicación
