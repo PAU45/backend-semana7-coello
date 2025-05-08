@@ -2,10 +2,10 @@ import fs from 'fs';
 import { createConnection } from 'mysql2/promise'; // Asegúrate de tener mysql2 instalado
 
 const db = await createConnection({
-    host: 'tu_host',
-    user: 'tu_usuario',
-    database: 'tu_base_de_datos',
-    password: 'tu_contraseña'
+    host: "dpg-d0e8ov8dl3ps73bfrs40-a",
+    user: "root",
+    database: "db_umhz",
+    password:  "cJR3CbedVaqOAywDFDfdOkq5OxeRce9K"
 });
 
 const insertData = async () => {
