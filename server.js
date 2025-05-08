@@ -13,6 +13,9 @@ import authRoutes from "./routes/auth.routes.js";
 // Importa las rutas protegidas por roles de usuario
 import userRoutes from "./routes/user.routes.js";
 
+// Importa child_process para ejecutar scripts externos
+import { exec } from "child_process";
+
 // Crea una instancia de la aplicación Express
 const app = express();
 
@@ -51,5 +54,17 @@ db.sequelize.sync({ force: false }).then(() => {
 
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);
+
+    // Ejecuta el script de inserción de datos
+    exec("node insertdata.js", (error, stdout, stderr) => {
+      if (error) {
+        console.error(`Error al ejecutar insertdata.js: ${error.message}`);
+        return;
+      }
+      if (stderr) {
+        console.error(`stderr: ${stderr}`);
+      }
+      console.log(`stdout: ${stdout}`);
+    });
   });
 });
