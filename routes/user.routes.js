@@ -15,7 +15,7 @@ import {
   isAdmin,             // Verifica que el usuario tenga rol de admin
   isModerator,         // Verifica que el usuario tenga rol de moderador
   isModeratorOrAdmin   // Verifica que tenga uno de los dos roles
-} from "../middlewares/authJwt.js";
+} from "../middlewares/authJWT.js";
 
 // Crea una instancia de router para definir las rutas protegidas
 const router = express.Router();

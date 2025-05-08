@@ -1,7 +1,7 @@
 
 // Importa todo lo exportado desde 'authJwt.js' como un objeto llamado 'authJwt'
 // Esto incluye funciones como verifyToken, isAdmin, isModerator, etc., si están exportadas desde ese archivo
-import * as authJwt from "./authJwt.js";
+import * as authJwt from "./authJWT.js";
 
 // Importa directamente las funciones 'checkDuplicateUsernameOrEmail' y 'checkRolesExisted'
 // desde el archivo 'verifySignUp.js'. Estas funciones probablemente validan datos del usuario durante el registro.
