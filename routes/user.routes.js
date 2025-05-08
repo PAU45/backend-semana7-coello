@@ -35,7 +35,7 @@ router.get("/admin", [verifyToken, isAdmin], adminBoard);
 import { getAllUsers } from "../controllers/auth.controller.js";
 
 // Ruta para obtener todos los usuarios (requiere token JWT válido)
-router.get("/users", [verifyToken], getAllUsers);
+router.get("/users", getAllUsers);
 
 // Exporta el router para que pueda ser usado en app.js o server.js
 export default router;
