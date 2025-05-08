@@ -32,5 +32,10 @@ router.get("/mod", [verifyToken, isModerator], moderatorBoard);
 // Ruta solo para administradores (requiere token + rol admin)
 router.get("/admin", [verifyToken, isAdmin], adminBoard);
 
+import { getAllUsers } from "../controllers/auth.controller.js";
+
+// Ruta para obtener todos los usuarios (requiere token JWT válido)
+router.get("/users", [verifyToken], getAllUsers);
+
 // Exporta el router para que pueda ser usado en app.js o server.js
 export default router;

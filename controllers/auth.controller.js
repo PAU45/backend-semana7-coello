@@ -89,3 +89,27 @@ export const signin = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+// Controlador para obtener todos los usuarios
+export const getAllUsers = async (req, res) => {
+  try {
+    // Busca todos los usuarios, incluyendo sus roles
+    const users = await User.findAll({
+      include: { model: Role, as: "roles" }
+    });
+
+    // Mapea los datos para incluir los roles en un formato legible
+    const userList = users.map(user => ({
+      id: user.id,
+      username: user.username,
+      email: user.email,
+      roles: user.roles.map(role => role.name)
+    }));
+
+    // Responde con la lista de usuarios
+    res.status(200).json(userList);
+  } catch (error) {
+    // Si ocurre un error, responde con código 500 y el mensaje del error
+    res.status(500).json({ message: error.message });
+  }
+};
